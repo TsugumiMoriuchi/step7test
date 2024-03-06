@@ -47,8 +47,8 @@ class Product extends Model
           if($searchcompany) {
               $query->where('products.company_id', '=', $searchcompany);
           }
-
-          $products = $query->get();
+          $products = $query->paginate(5);
+          //$products = $query->get();
           
           return $products;
     }

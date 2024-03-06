@@ -91,11 +91,11 @@ class ProductController extends Controller
                 $image->storeAs('public/image', $file);
                 $img_path = 'storage/image/'.$file;
                 $model->editProduct($id, $request, $img_path);
-
-            }else{
-                $model->editProductno($request, $id);
-            }
             
+            }else{
+                $model->editProductno($id, $request);
+            }
+       
 
             DB::commit();
         }catch(\Exception $e){
