@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Product; 
+use App\Models\Company;
 
 class ProductRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class ProductRequest extends FormRequest
      *
      * @return bool
      */
-
+    protected $model = Product::class; 
 
     //更新
     public function authorize(){
@@ -20,7 +22,7 @@ class ProductRequest extends FormRequest
     
     public function rules(){
         return [
-            'product_id' => 'required|string|max:255',
+            'product_name' => 'required|string|max:255',
             'company_id' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -30,7 +32,7 @@ class ProductRequest extends FormRequest
     }
     public function attributes(){
         return [
-    'product_id' => '商品名',
+    'product_name' => '商品名',
     'company_id' => 'メーカー名',
     'price' => '価格',
     'stock' => '在庫数',
@@ -40,7 +42,7 @@ class ProductRequest extends FormRequest
     }
     public function messages() {
         return [
-            'product_id.required' => ':attributeは必須項目です。',
+            'product_name.required' => ':attributeは必須項目です。',
             'company_id.required' => ':attributeは必須項目です。',
             'price.required' => ':attributeは必須項目です。',
             'stock.required' => ':attributeは必須項目です。',

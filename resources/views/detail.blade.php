@@ -5,11 +5,6 @@
 <div class="row">
 <h1 class="mb-4">商品情報詳細画面</h1>
 
-
-<form method="GET"
-    action="{{ route('detail', $product->id) }}"  enctype="multipart/form-data">
-
-    @csrf
     
 <table>
     <tr>
@@ -40,10 +35,13 @@
         <td>コメント</td>
         <td>{{ $product->comment }}</td>
     </tr>
-    <a href ="{{ rouote('edit', $product->id) }}" class="btn btn-primary">編集</a>
-    <a href ="{{ rouote('list') }}" class="btn btn-primary">戻る</a>
+    <tr>
+        <td><a href ="{{ route('edit', $product->id) }}" class="btn btn-primary">編集</a></td>
+    </tr>
+    <tr>
+        <td><a href ="{{ route('list') }}" class="btn btn-primary">戻る</a></td>
+    </tr>    
 </table>
-</form>
 </div>
 </div>
 @endsection

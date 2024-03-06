@@ -11,27 +11,17 @@ use Illuminate\Support\Facades\DB;
 class Company extends Model
 {
     use HasFactory;
+    public function products(){
 
-    //一覧画面表示
-    public function getCompanyById() {
+        return $this->hasMany(Product::class);
+    }
+
+    //検索
+    public function list() {
         
         $companies = DB::table('companies')->get();
       
         return $companies;
-    }
-    //検索
-    public function searchList($keyword, $searchcompany){
-        $query = DB::table('products')
-         ->join('companies', 'products.company_id', '=', 'company_name')
-         ->select('products.*','companies.company_name');
-
-         if($searchcompany) {
-            $query->where('products.company_id', '=', $searchcompany);
-        }
-
-        $companies = $query->get();
-        return $companies;
-
     }
     
 

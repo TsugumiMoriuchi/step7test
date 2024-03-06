@@ -7,8 +7,8 @@
 
 <div class="row">
 <div class="col-md-4">
-<form action="{{ route('list') }}" method="GET" class="form-inline">
-    @csrf
+<form action="{{ route('search') }}" method="GET" class="form-inline">
+    
     <div class="form-group mr-2">
     <input type="text" name="keyword" class="form-control" placeholder="検索キーワード">
     </div>
@@ -68,5 +68,8 @@
     </tr>
     @endforeach
     </tbody>
+    
 </table>
+{{ $products->links() }}
+
 @endsection
