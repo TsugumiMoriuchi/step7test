@@ -13,24 +13,39 @@ class ProductController extends Controller
     //一覧画面表示
     public function list(){
         $productModel = new Product();
+        $products = $productModel->list();
+    
         $companyModel = new Company();
-        $products = $productModel -> list();
-        $companies = $companyModel -> list();
-       
+        $companies = $companyModel->list();
+
         return view('list',['products' => $products , 'companies' => $companies]);
     }  
     //検索
     public function search(Request $request){
          $keyword = $request->input('keyword');
          $searchcompany = $request->input('search-company');
-        
+         $min_price = $request->input('min_price');
+         $max_price = $request->input('max_price');
+         $min_stock = $request->input('min_stock');
+         $max_stock = $request->input('max_stock');
+         
+
          $productModel = new Product();
          $companyModel = new Company();
-         $products = $productModel->search($keyword, $searchcompany);
+         $products = $productModel->search($keyword, $searchcompany, $min_price, $max_price, $min_stock, $max_stock);
          $companies = $companyModel ->list();
     
         // $products = Product::all();
-        return view('list',['products' => $products , 'companies' => $companies ,'keyword' => $keyword , 'searchcompany' => $searchcompany]);
+        return view('list', [
+            'products' => $products,
+            'companies' => $companies,
+            'keyword' => $keyword,
+            'searchcompany' => $searchcompany,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+            'min_stock' => $min_stock,
+            'max_stock' => $max_stock,
+        ]);
     }
     //詳細画面表示
     public function detail($id){
@@ -62,6 +77,8 @@ class ProductController extends Controller
             $product = $model->createSubmit($request, $img_path);
             DB::commit();
             return redirect(route('list'))->with('success', '商品が正常に登録されました。')->with('companies', $companies);
+            
+
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -106,20 +123,41 @@ class ProductController extends Controller
 
     }
     //削除処理
-    public function destroy($id){
-        DB::beginTransaction();
-        try{
-            $model = new Product();
-            $model->destroyproduct($id);
+    //   public function destroy($id){
+    //      DB::beginTransaction();
+    //      try{
+    //          $model = new Product();
+    //          $model->destroyproduct($id);
 
+    //          DB::commit();
+
+    //      }catch(\Exception $e){
+    //          DB::rollback();
+    //          return back();
+    //      }
+
+    //      return redirect()->route('list');
+    //  }
+
+     public function destroy($id) {
+        try {
+            DB::beginTransaction();
+            
+            // Product モデルのインスタンスを作成して destroyproduct メソッドを呼び出す
+            $product = new Product();
+            $product->destroyproduct($id);
+    
             DB::commit();
-
-        }catch(\Exception $e){
+    
+            return response()->json(['success' => true], 200);
+        } catch (\Exception $e) {
             DB::rollback();
-            return back();
+            return response()->json(['success' => false, 'message' => '削除に失敗しました'], 500);
         }
-
-        return redirect()->route('list');
     }
+
+     
+
+    
    
 }

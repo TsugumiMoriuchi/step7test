@@ -29,7 +29,9 @@ Route::get('/create', [ProductController::class, 'showRegistForm'])->name('creat
 Route::post('/create', [ProductController::class, 'createSubmit'])->name('createSubmit');//新規登録処理
 Route::get('/edit/{id}', [ProductController::class, 'showEdit'])->name('edit');//編集画面表示
 Route::post('/edit/{id}', [ProductController::class, 'createEdit'])->name('editSubmit');//更新処理
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('destroy');//削除処理
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');//削除処理
+// Route::get('/sort', [ProductController::class, 'sort'])->name('sort');//ソート機能
+
 
 Auth::routes();
 

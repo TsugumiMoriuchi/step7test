@@ -35,8 +35,9 @@ class Product extends Model
         return $products;
 
     }
+
     //検索
-    public function search($keyword, $searchcompany){
+    public function search($keyword, $searchcompany, $min_price, $max_price, $min_stock, $max_stock){
          $query = DB::table('products')
           ->join('companies', 'products.company_id', '=', 'companies.id')
           ->select('products.*','companies.company_name');
@@ -47,6 +48,20 @@ class Product extends Model
           if($searchcompany) {
               $query->where('products.company_id', '=', $searchcompany);
           }
+          if($min_price) {
+            $query->where('products.price', '>=', $min_price);
+         }
+         if($max_price) {
+            $query->where('products.price', '<=', $max_price);
+         }
+         if($min_stock) {
+            $query->where('products.stock', '>=', $min_stock);
+         }
+         if($max_stock) {
+            $query->where('products.stock', '<=', $max_stock);
+         }
+
+        
           $products = $query->paginate(5);
           //$products = $query->get();
           
@@ -65,14 +80,7 @@ class Product extends Model
     }
     //新規登録処理
     public function createSubmit($request, $img_path){
-        //$product = new Product();
-        //$product->product_name = $request->input('product_name');
-        //$product->company_id = $request->input('company_id');
-        //$product->price = $request->input('price');
-        //$product->stock = $request->input('stock');
-        //$product->comment = $request->input('comment');
-        //$product->img_path = $img_path;
-        //$product->save();
+        
         DB::table('products')->insert([
             'product_name' => $request->input('product_name'),
             'company_id' => $request->input('company_id'),
@@ -118,11 +126,14 @@ class Product extends Model
     }
         
     //削除処理
-    public function destroyproduct($id){
+     public function destroyproduct($id){
 
-        $products = DB::table('products')->where('products.id','=',$id)->delete();
-    }
+         $products = DB::table('products')->where('products.id','=',$id)->delete();
+     }
     
-    
+    // public function destroyproduct($id) {
+    //     // Product モデルを使用して削除処理を行う
+    //     Product::where('products.id', $id)->delete();
+    // }
 
 }
