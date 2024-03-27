@@ -35,7 +35,7 @@ class SalesController extends Controller
 
 
     // Salesテーブルに商品IDと購入日時を記録する
-    $sale = new Sale([
+    $sale = new Sales([
         'product_id' => $productId,
         // 主キーであるIDと、created_at , updated_atは自動入力されるため不要
     ]);
@@ -52,31 +52,5 @@ class SalesController extends Controller
 }
 }
 
-    // public function index()
-    // {
-    //    try {
-    //         $version = Sales::first();
-    //         $result = [
-    //             'result'      => true,
-    //             'product_id'  => $product_id->product_id
-    //         ];
-    //     } catch(\Exception $e){
-    //         $result = [
-    //             'result' => false,
-    //             'error' => [
-    //                 'messages' => [$e->getMessage()]
-    //             ],
-    //         ];
-    //         return $this->resConversionJson($result, $e->getCode());
-    //     }
-    //     return $this->resConversionJson($result);
-    // }
-
-    // private function resConversionJson($result, $statusCode=200)
-    // {
-    //     if(empty($statusCode) || $statusCode < 100 || $statusCode >= 600){
-    //         $statusCode = 500;
-    //     }
-    //     return response()->json($result, $statusCode, ['Content-Type' => 'application/json'], JSON_UNESCAPED_SLASHES);
-    // }
+    
 }
