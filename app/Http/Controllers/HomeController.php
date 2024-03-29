@@ -21,9 +21,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function indexhome()
     {
-        return view('home');
+        //return view('home');
+        return redirect()->route('list');
     }
 }
     

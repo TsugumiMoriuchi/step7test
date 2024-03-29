@@ -13,10 +13,11 @@ class SalesController extends Controller
 {
     public function index(Request $request)
 {
-    try{
     // リクエストから必要なデータを取得する
     $productId = $request->input('product_id'); // "product_id":7が送られた場合は7が代入される
     $quantity = $request->input('quantity', 1); // 購入する数を代入する もしも”quantity”というデータが送られていない場合は1を代入する
+    
+    try{
 
     // データベースから対象の商品を検索・取得
     $product = Product::find($productId); // "product_id":7 送られてきた場合 Product::find(7)の情報が代入される

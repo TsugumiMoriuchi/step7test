@@ -26,6 +26,8 @@ $(document).on('click', '#search-btn', function(e){
         success:function(response){
             var tableHtml = $(response).find('#mytable').html();// テーブル部分を抜き出す
             $('#mytable').html(tableHtml);
+            // テーブルが更新された後にソート用のJavaScriptを再度実行
+            $("#sort").tablesorter();
         }
     });
 });

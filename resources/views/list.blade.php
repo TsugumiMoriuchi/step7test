@@ -61,7 +61,7 @@
         <th>価格</th>
         <th>在庫数</th>
         <th>メーカー名</th> 
-         
+        
     </tr>
     </thead>
     <tbody>

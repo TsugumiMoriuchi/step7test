@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'indexhome'])->name('home');
 Route::get('/search', [ProductController::class, 'search'])->name('search');//検索
 Route::get('/list', [ProductController::class, 'list'])->name('list');//一覧画面表示
 Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('detail');//詳細画面表示
@@ -35,4 +35,4 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pr
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'indexhome'])->name('home');
